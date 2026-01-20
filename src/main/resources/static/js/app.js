@@ -48,7 +48,7 @@ form.addEventListener("submit", async (e) => {
 
     const data = await response.json();
     renderWeather(data.weather);
-    renderEvents(data.events);
+    renderEvents(data.events, data.eventsError);
   } catch (err) {
     showError("Something went wrong. Please try again.");
   } finally {
@@ -96,7 +96,12 @@ function renderPrecipitation(theme) {
   }
 }
 
-function renderEvents(events) {
+function renderEvents(events, eventsError) {
+  if (eventsError) {
+    eventsResult.innerHTML = `<p class="error-state">${escapeHtml(eventsError)}</p>`;
+    return;
+  }
+
   if (!events || events.length === 0) {
     eventsResult.innerHTML = "<p class=\"empty-state\">No upcoming events found for this city.</p>";
     return;

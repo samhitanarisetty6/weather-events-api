@@ -351,6 +351,11 @@ body[data-theme="mist"] {
   margin: 0;
 }
 
+.error-state {
+  color: #b91c1c;
+  margin: 0;
+}
+
 .event-list {
   list-style: none;
   margin: 0;

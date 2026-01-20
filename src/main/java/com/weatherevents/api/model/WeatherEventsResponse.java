@@ -5,6 +5,7 @@ import java.util.List;
 public record WeatherEventsResponse(
         String city,
         WeatherInfo weather,
-        List<EventInfo> events
+        List<EventInfo> events,
+        String eventsError
 ) {
 }
