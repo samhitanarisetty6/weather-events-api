@@ -3,10 +3,14 @@ const cityInput = document.getElementById("city-input");
 const errorBanner = document.getElementById("search-error");
 const eventsResult = document.getElementById("events-result");
 const precipContainer = document.getElementById("precip");
+const quickCityButtons = document.querySelectorAll(".quick-city");
+const heroSearch = document.getElementById("hero-search");
 
 const locationEl = document.getElementById("location");
 const conditionLabelEl = document.getElementById("condition-label");
+const tempBlock = document.getElementById("temp-block");
 const tempEl = document.getElementById("temp");
+const statBar = document.getElementById("stat-bar");
 const statHumidity = document.getElementById("stat-humidity");
 const statVisibility = document.getElementById("stat-visibility");
 const statFeels = document.getElementById("stat-feels");
@@ -28,9 +32,19 @@ const CONDITION_THEMES = {
   Tornado: { theme: "thunderstorm", label: "Tornado Warning" },
 };
 
-form.addEventListener("submit", async (e) => {
+form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const city = cityInput.value.trim();
+  searchCity(cityInput.value.trim());
+});
+
+quickCityButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    cityInput.value = button.dataset.city;
+    searchCity(button.dataset.city);
+  });
+});
+
+async function searchCity(city) {
   if (!city) return;
 
   const submitButton = form.querySelector("button");
@@ -54,7 +68,7 @@ form.addEventListener("submit", async (e) => {
   } finally {
     submitButton.disabled = false;
   }
-});
+}
 
 function renderWeather(weather) {
   const config = CONDITION_THEMES[weather.condition] || { theme: "clear", label: capitalize(weather.description) };
@@ -63,6 +77,11 @@ function renderWeather(weather) {
   locationEl.textContent = weather.cityLabel;
   conditionLabelEl.textContent = config.label;
   tempEl.textContent = Math.round(weather.temperature);
+  heroSearch.classList.remove("centered");
+  locationEl.classList.remove("hidden");
+  conditionLabelEl.classList.remove("hidden");
+  tempBlock.classList.remove("hidden");
+  statBar.classList.remove("hidden");
   statHumidity.textContent = `${weather.humidity}%`;
   statVisibility.textContent = `${Math.round(weather.visibilityMiles)} mi`;
   statFeels.textContent = `${Math.round(weather.feelsLike)}°`;
