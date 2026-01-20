@@ -1,0 +1,178 @@
+:root {
+  --text: #1a1a1a;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --accent: #1e7a4c;
+  --accent-hover: #17603b;
+  --bg-subtle: #f9fafb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background: #ffffff;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+h1 {
+  font-size: 2.75rem;
+  font-weight: 800;
+  margin: 0 0 12px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+section {
+  margin-bottom: 36px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+section > p {
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.about-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.about-row p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.icon-row {
+  display: flex;
+  gap: 12px;
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.search-row {
+  display: flex;
+  gap: 12px;
+}
+
+#city-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+#city-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+button {
+  padding: 12px 24px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+button:hover {
+  background: var(--accent-hover);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.empty-state {
+  color: var(--muted);
+  margin: 0;
+}
+
+.error-state {
+  color: #b91c1c;
+  margin: 0;
+}
+
+.weather-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--bg-subtle);
+  border-radius: 10px;
+}
+
+.weather-card .icon {
+  font-size: 2.5rem;
+}
+
+.weather-card .details p {
+  margin: 2px 0;
+}
+
+.weather-card .temp {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.event-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-item {
+  padding: 14px 16px;
+  background: var(--bg-subtle);
+  border-radius: 10px;
+}
+
+.event-item a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.event-item a:hover {
+  text-decoration: underline;
+}
+
+.event-item .meta {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 4px;
+}

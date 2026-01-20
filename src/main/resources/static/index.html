@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Events API</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Weather Events API</h1>
+      <p class="subtitle">An API to fetch and display weather events for a specified location</p>
+    </header>
+
+    <section>
+      <h2>About</h2>
+      <div class="about-row">
+        <p>
+          This project fetches weather data from the OpenWeatherMap API and nearby events
+          from the Ticketmaster Discovery API, combining both into a single view for any city
+          you search for.
+        </p>
+        <div class="icon-row">
+          <span class="icon">&#9728;&#65039;</span>
+          <span class="icon">&#127783;&#65039;</span>
+          <span class="icon">&#9925;&#65039;</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Usage</h2>
+      <p>Enter a city name to view the current weather and local events.</p>
+      <form id="search-form" class="search-row">
+        <input type="text" id="city-input" placeholder="Enter city" autocomplete="off" required>
+        <button type="submit">Get Weather Events</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Weather</h2>
+      <div id="weather-result">
+        <p class="empty-state">No weather data to display.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Weather Events</h2>
+      <div id="events-result">
+        <p class="empty-state">No weather events to display.</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
