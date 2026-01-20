@@ -44,13 +44,24 @@ public class WeatherService {
         var weatherList = (java.util.List<Map<String, Object>>) body.get("weather");
         var weatherEntry = weatherList.get(0);
         var main = (Map<String, Object>) body.get("main");
+        var sys = (Map<String, Object>) body.get("sys");
+
+        String name = (String) body.get("name");
+        String country = sys != null ? (String) sys.get("country") : null;
+        String cityLabel = (country != null && !country.isBlank()) ? name + ", " + country : name;
+
+        double visibilityMeters = body.containsKey("visibility")
+                ? ((Number) body.get("visibility")).doubleValue()
+                : 0;
 
         return new WeatherInfo(
+                cityLabel,
                 (String) weatherEntry.get("main"),
                 (String) weatherEntry.get("description"),
                 ((Number) main.get("temp")).doubleValue(),
                 ((Number) main.get("feels_like")).doubleValue(),
                 ((Number) main.get("humidity")).intValue(),
+                visibilityMeters / 1609.34,
                 (String) weatherEntry.get("icon")
         );
     }

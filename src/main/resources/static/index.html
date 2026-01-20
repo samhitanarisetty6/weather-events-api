@@ -3,55 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather Events API</title>
+  <title>Weather Events</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <main class="container">
-    <header>
-      <h1>Weather Events API</h1>
-      <p class="subtitle">An API to fetch and display weather events for a specified location</p>
-    </header>
+<body data-theme="clear">
+  <div class="page">
+    <div class="brand-row">
+      <span class="brand">Weather Events</span>
+    </div>
 
-    <section>
-      <h2>About</h2>
-      <div class="about-row">
-        <p>
-          This project fetches weather data from the OpenWeatherMap API and nearby events
-          from the Ticketmaster Discovery API, combining both into a single view for any city
-          you search for.
-        </p>
-        <div class="icon-row">
-          <span class="icon">&#9728;&#65039;</span>
-          <span class="icon">&#127783;&#65039;</span>
-          <span class="icon">&#9925;&#65039;</span>
+    <form id="search-form" class="search-bar">
+      <input id="city-input" type="text" placeholder="Search a city..." autocomplete="off" required>
+      <button type="submit" aria-label="Get weather">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+          <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span>Search</span>
+      </button>
+    </form>
+
+    <p id="search-error" class="error-banner hidden"></p>
+
+    <section class="hero" id="hero">
+      <svg class="scene" viewBox="0 0 400 620" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" style="stop-color:var(--sky-top)"/>
+            <stop offset="55%" style="stop-color:var(--sky-mid)"/>
+            <stop offset="100%" style="stop-color:var(--sky-bottom)"/>
+          </linearGradient>
+          <linearGradient id="lake" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" style="stop-color:var(--lake-top)"/>
+            <stop offset="100%" style="stop-color:var(--lake-bottom)"/>
+          </linearGradient>
+        </defs>
+
+        <rect x="0" y="0" width="400" height="620" fill="url(#sky)"/>
+
+        <circle class="sun" cx="110" cy="150" r="52"/>
+
+        <polygon class="mountain mountain-back" points="0,340 70,230 140,320 210,220 280,330 340,250 400,340 400,620 0,620"/>
+        <polygon class="mountain mountain-front" points="0,400 90,290 180,390 260,300 340,400 400,360 400,620 0,620"/>
+
+        <path class="lake" d="M0,470 Q100,440 200,470 T400,465 L400,620 L0,620 Z" fill="url(#lake)"/>
+
+        <polygon class="ground" points="0,560 130,500 260,545 400,500 400,620 0,620"/>
+
+        <g class="tree tree-1" transform="translate(120,470)">
+          <rect x="-4" y="60" width="8" height="30" class="trunk"/>
+          <polygon points="0,0 -26,70 26,70"/>
+          <polygon points="0,20 -20,80 20,80"/>
+          <polygon points="0,40 -15,90 15,90"/>
+        </g>
+        <g class="tree tree-2" transform="translate(165,485) scale(0.8)">
+          <rect x="-4" y="60" width="8" height="30" class="trunk"/>
+          <polygon points="0,0 -26,70 26,70"/>
+          <polygon points="0,20 -20,80 20,80"/>
+          <polygon points="0,40 -15,90 15,90"/>
+        </g>
+        <g class="tree tree-3" transform="translate(85,490) scale(0.65)">
+          <rect x="-4" y="60" width="8" height="30" class="trunk"/>
+          <polygon points="0,0 -26,70 26,70"/>
+          <polygon points="0,20 -20,80 20,80"/>
+          <polygon points="0,40 -15,90 15,90"/>
+        </g>
+      </svg>
+
+      <div class="precip" id="precip"></div>
+
+      <div class="hero-content">
+        <div class="location" id="location">Search a city</div>
+
+        <div class="condition-label" id="condition-label">Enter a city to begin</div>
+
+        <div class="temp-block">
+          <span class="temp" id="temp">--</span><span class="temp-unit">&deg;</span>
+        </div>
+
+        <div class="stat-bar">
+          <div class="stat">
+            <span class="stat-value" id="stat-humidity">--%</span>
+            <span class="stat-label">Humidity</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="stat-visibility">-- mi</span>
+            <span class="stat-label">Visibility</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" id="stat-feels">--&deg;</span>
+            <span class="stat-label">Feels like</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <h2>Usage</h2>
-      <p>Enter a city name to view the current weather and local events.</p>
-      <form id="search-form" class="search-row">
-        <input type="text" id="city-input" placeholder="Enter city" autocomplete="off" required>
-        <button type="submit">Get Weather Events</button>
-      </form>
-    </section>
-
-    <section>
-      <h2>Weather</h2>
-      <div id="weather-result">
-        <p class="empty-state">No weather data to display.</p>
-      </div>
-    </section>
-
-    <section>
-      <h2>Weather Events</h2>
+    <section class="events-section">
+      <h2>Local Events</h2>
       <div id="events-result">
-        <p class="empty-state">No weather events to display.</p>
+        <p class="empty-state">Search a city to see upcoming events.</p>
       </div>
     </section>
-  </main>
+  </div>
 
   <script src="js/app.js"></script>
 </body>
