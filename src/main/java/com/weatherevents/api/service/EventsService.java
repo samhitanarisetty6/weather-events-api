@@ -3,7 +3,6 @@ package com.weatherevents.api.service;
 import com.weatherevents.api.model.EventInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -32,12 +31,7 @@ public class EventsService {
                 .queryParam("size", "10")
                 .toUriString();
 
-        Map<String, Object> body;
-        try {
-            body = restTemplate.getForObject(url, Map.class);
-        } catch (HttpClientErrorException e) {
-            return List.of();
-        }
+        Map<String, Object> body = restTemplate.getForObject(url, Map.class);
 
         List<EventInfo> events = new ArrayList<>();
         if (body == null || !body.containsKey("_embedded")) {
